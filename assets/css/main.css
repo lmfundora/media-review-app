@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+@theme {
+    --color-t-primary: oklch(92% 0.004 286.32);
+    --color-muted: oklch(16.1% 0.005 285.823);
+    --color-muted-light: oklch(18.1% 0.005 285.823);
+    --color-g-background: oklch(21% 0.006 285.885);
+    --shadow-custom:
+        4px 4px 25px var(--color-muted), -1px -1px 8px var(--color-muted-light);
+}
+
+:root {
+    background-color: var(--color-g-background);
+}
