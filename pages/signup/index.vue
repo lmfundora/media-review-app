@@ -19,8 +19,8 @@ async function signInWithGoogle() {
     <div v-for="n in 5" :key="n" class="forma"></div>
     <div class="absolute w-full h-full backdrop-blur-3xl top-0 right-0"></div>
     <LoginCard
-      title="Sing In"
-      subtitle="Aquí podrá iniciar seción con su usuario y contraseña o con su cuenta de Google."
+      title="Sing Up"
+      subtitle="Aquí podrá crear su cuenta o usar Google."
     >
       <Button @click="signInWithGoogle" color="white" severity="secondary">
         <NuxtImg
