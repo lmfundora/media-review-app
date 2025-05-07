@@ -1,5 +1,18 @@
 <script setup lang="ts">
 import { User } from "lucide-vue-next";
+import { authClient } from "@/lib/auth-client"; //import the auth client
+
+async function signInWithGoogle() {
+  console.log("siuu");
+
+  await authClient.signIn.social({
+    provider: "google",
+    callbackURL: "/home",
+    errorCallbackURL: "/error",
+    newUserCallbackURL: "/welcome",
+    disableRedirect: false,
+  });
+}
 
 defineProps({
   title: String,
@@ -9,32 +22,54 @@ defineProps({
 const { name } = useRoute();
 </script>
 <template>
-  <div class="w-[480px] h-[580px] z-20 cristal flex flex-col items-center">
+  <div class="w-5/6 h-fit sm:w-[480px] z-20 cristal flex flex-col items-center">
     <Avatar class="mt-8" size="xlarge" shape="circle">
       <template #icon>
         <User />
       </template>
     </Avatar>
-    <div class="w-[280px] mt-10">
-      <h6 class="text-4xl mb-4">{{ title }}</h6>
-      <p class="text-sm">{{ subtitle }}</p>
-    </div>
-    <slot />
-    <p v-if="name === 'login'" class="text-center text-sm mx-8 mt-10">
-      Si usted no tiene una cuenta aún puede crearse una aquí,
-      <NuxtLink class="text-sky-400 underline" a to="/signup"
-        >Sign Up.</NuxtLink
+    <div class="max-w-[350px] relative px-10 pb-10 flex flex-col items-center">
+      <div class="mx-8 sm:mx-0 w-full my-10">
+        <h6 class="text-4xl mb-4">{{ title }}</h6>
+        <p class="text-xs sm:text-sm">{{ subtitle }}</p>
+      </div>
+      <slot />
+      <Button
+        @click="signInWithGoogle"
+        color="white"
+        class="my-10 w-full"
+        severity="secondary"
       >
-    </p>
-    <p v-else class="text-center text-sm mx-8 mt-10">
-      Si usted ya tiene una cuenta puede iniciar sesión aquí,
-      <NuxtLink class="text-sky-400 underline" a to="/login">Sign In.</NuxtLink>
-    </p>
+        <NuxtImg
+          src="/Google-Logo--Streamline-Ultimate.svg"
+          height="20"
+          width="20"
+        />
+        Google
+      </Button>
+      <div class="text-center text-xs mx-8 absolute bottom-5">
+        <div v-if="name === 'login'">
+          <p>
+            Si usted no tiene una cuenta aún puede crearse una aquí,
+            <NuxtLink class="text-sky-400 underline" a to="/signup"
+              >Sign Up.</NuxtLink
+            >
+          </p>
+        </div>
+        <div v-else>
+          <p>
+            Si usted ya tiene una cuenta puede iniciar sesión aquí,
+            <NuxtLink class="text-sky-400 underline" a to="/login"
+              >Sign In.</NuxtLink
+            >
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <style scoped>
 .cristal {
-  padding: 40px;
   border-radius: 15px;
   background: linear-gradient(
     0.15turn,

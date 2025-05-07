@@ -1,35 +1,18 @@
 <script setup lang="ts">
-import { authClient } from "@/lib/auth-client"; //import the auth client
 import LoginCard from "~/components/login/loginCard.vue";
-
-async function signInWithGoogle() {
-  console.log("siuu");
-
-  await authClient.signIn.social({
-    provider: "google",
-    callbackURL: "/home",
-    errorCallbackURL: "/error",
-    newUserCallbackURL: "/welcome",
-    disableRedirect: false,
-  });
-}
+import LoginForm from "~/components/login/loginForm.vue";
 </script>
 <template>
-  <div class="w-screen h-screen relative flex justify-center items-center">
+  <div
+    class="w-screen h-screen overflow-hidden relative flex justify-center items-center"
+  >
     <div v-for="n in 5" :key="n" class="forma"></div>
     <div class="absolute w-full h-full backdrop-blur-3xl top-0 right-0"></div>
     <LoginCard
       title="Sing In"
       subtitle="Aquí podrá iniciar seción con su usuario y contraseña o con su cuenta de Google."
     >
-      <Button @click="signInWithGoogle" color="white" severity="secondary">
-        <NuxtImg
-          src="/Google-Logo--Streamline-Ultimate.svg"
-          height="20"
-          width="20"
-        />
-        Google
-      </Button>
+      <LoginForm />
     </LoginCard>
   </div>
 </template>
@@ -45,7 +28,6 @@ async function signInWithGoogle() {
   filter: blur(85px);
   /* Animación de latido */
   animation: latido 2s infinite alternate;
-  transform-origin: 50% 50%;
 }
 
 @keyframes latido {
