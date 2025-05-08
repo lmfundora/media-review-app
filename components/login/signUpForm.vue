@@ -3,8 +3,13 @@ import { z } from "zod";
 import { zodResolver } from "@primevue/forms/resolvers/zod";
 import { useToast } from "primevue/usetoast";
 import { authClient } from "@/lib/auth-client"; //import the auth client
+import type {
+  FormFieldPassThroughAttributes,
+  FormFieldPassThroughOptions,
+} from "@primevue/forms/formfield";
 
 const toast = useToast();
+const loading = ref(false);
 
 const initialValues = ref({
   email: "",
@@ -33,37 +38,43 @@ const resolver = ref(
   ),
 );
 
-async function signUp() {
-  const { data, error } = await authClient.signUp.email(
-    {
-      email: initialValues.value.email, // user email address
-      password: initialValues.value.password, // user password -> min 8 characters by default
-      name: initialValues.value.name, // user display name
-      callbackURL: "/dashboard", // A URL to redirect to after the user verifies their email (optional)
-    },
-    {
-      onRequest: (ctx) => {
-        //show loading
+// To complete
+const onFormSubmit = async (formData: any) => {
+  if (formData.valid) {
+    const { data, error } = await authClient.signUp.email(
+      {
+        email: formData.email, // user email address
+        password: formData.password, // user password -> min 8 characters by default
+        name: formData.name, // user display name
+        callbackURL: "/dashboard", // A URL to redirect to after the user verifies their email (optional)
       },
-      onSuccess: (ctx) => {
-        //redirect to the dashboard or sign in page
+      {
+        onRequest: (ctx) => {
+          loading.value = true; //show loading
+        },
+        onSuccess: (ctx) => {
+          //redirect to the dashboard or sign in page
+          toast.add({
+            severity: "success",
+            detail: "Acount created",
+            summary: "Your acount was created successfully.",
+            life: 3000,
+          });
+          loading.value = false; //show loading
+        },
+        onError: (ctx) => {
+          // display the error message
+          alert(ctx.error.message);
+          toast.add({
+            severity: "error",
+            detail: "Ups something whent wrong",
+            summary: ctx.error.message,
+            life: 3000,
+          });
+          loading.value = false; //show loading
+        },
       },
-      onError: (ctx) => {
-        // display the error message
-        alert(ctx.error.message);
-      },
-    },
-  );
-}
-
-const onFormSubmit = ({ valid }: { valid: boolean }) => {
-  if (valid) {
-    toast.add({
-      severity: "success",
-      detail: "Form is valid.",
-      summary: "Form is submitted.",
-      life: 3000,
-    });
+    );
   }
 };
 </script>
@@ -116,7 +127,12 @@ const onFormSubmit = ({ valid }: { valid: boolean }) => {
         </template>
       </div>
     </div>
-    <Button type="submit" severity="primary" label="Submit" />
+    <Button
+      type="submit"
+      severity="primary"
+      label="Submit"
+      :loading="loading"
+    />
   </Form>
 </template>
 <style scoped></style>

@@ -16,7 +16,9 @@ async function signInWithGoogle() {
 }
 </script>
 <template>
-  <div class="w-screen h-screen relative flex justify-center items-center">
+  <div
+    class="w-screen h-screen relative flex justify-center items-center overflow-hidden"
+  >
     <div v-for="n in 5" :key="n" class="forma"></div>
     <div class="absolute w-full h-full backdrop-blur-3xl top-0 right-0"></div>
     <LoginCard
