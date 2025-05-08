@@ -7,18 +7,33 @@ const toast = useToast();
 
 const initialValues = ref({
   username: "",
+  password: "",
 });
 const resolver = ref(
   zodResolver(
     z.object({
       username: z.string().min(1, { message: "Username is required via Zod." }),
+      password: z
+        .string()
+        .min(3, { message: "Minimum 3 characters." })
+        .max(8, { message: "Maximum 8 characters." })
+        .refine((value: any) => /[a-z]/.test(value), {
+          message: "Must have a lowercase letter.",
+        })
+        .refine((value: any) => /[A-Z]/.test(value), {
+          message: "Must have an uppercase letter.",
+        })
+        .refine((value: any) => /d/.test(value), {
+          message: "Must have a number.",
+        }),
     }),
   ),
 );
 const onFormSubmit = ({ valid }: { valid: boolean }) => {
   if (valid) {
     toast.add({
-      severity: "error",
+      severity: "success",
+      detail: "Form is valid.",
       summary: "Form is submitted.",
       life: 3000,
     });
@@ -42,8 +57,27 @@ const onFormSubmit = ({ valid }: { valid: boolean }) => {
         variant="simple"
         >{{ $form.username.error.message }}</Message
       >
+      <div class="flex flex-col gap-1">
+        <Password
+          name="password"
+          placeholder="Password"
+          toggleMask
+          :feedback="false"
+          fluid
+        />
+        <template v-if="$form.password?.invalid">
+          <Message
+            v-for="(error, index) of $form.password.errors"
+            :key="index"
+            severity="error"
+            size="small"
+            variant="simple"
+            >{{ error.message }}</Message
+          >
+        </template>
+      </div>
     </div>
-    <Button type="submit" severity="secondary" label="Submit" />
+    <Button type="submit" severity="primary" label="Submit" />
   </Form>
 </template>
 <style scoped></style>

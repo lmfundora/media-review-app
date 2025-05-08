@@ -3,6 +3,9 @@
 @theme {
     --color-t-primary: oklch(92% 0.004 286.32);
     --color-muted: oklch(16.1% 0.005 285.823);
+    --color-error: oklch(64.5% 0.246 16.439);
+    --color-info: oklch(74.6% 0.16 232.661);
+    --color-success: oklch(84.5% 0.143 164.978);
     --color-muted-light: oklch(18.1% 0.005 285.823);
     --color-g-background: oklch(21% 0.006 285.885);
     --shadow-custom:
@@ -11,9 +14,22 @@
 
 :root {
     background-color: var(--color-g-background);
+
     --p-toast-width: 350px;
     --p-toast-border-radius: 15px;
+    --p-toast-info-border-color: rgba(255, 255, 255, 0.2);
+    --p-toast-success-border-color: rgba(255, 255, 255, 0.2);
+    --p-toast-error-border-color: rgba(255, 255, 255, 0.2);
+    --p-toast-error-color: var(--color-error);
+    --p-toast-info-color: var(--color-info);
+    --p-toast-success-color: var(--color-success);
+
+    --p-button-text-secondary-hover-background: rgba(255, 255, 255, 0.1);
+    --p-button-text-primary-hover-background: rgba(255, 255, 255, 0.1);
+
     --p-toast-info-background: .cristal;
+    --p-toast-success-background: .cristal;
+    --p-toast-error-background: .cristal;
 }
 
 .cristal {

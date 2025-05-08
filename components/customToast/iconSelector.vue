@@ -22,13 +22,19 @@ const props = defineProps({
   <div>
     <CircleCheckBig
       v-if="severity == 'success'"
+      :size="35"
       color="oklch(90.5% 0.093 164.15)"
     />
     <OctagonAlert
       v-if="severity == 'error'"
+      :size="35"
       color="oklch(64.5% 0.246 16.439)"
     />
-    <Info v-if="severity == 'info'" color="oklch(82.8% 0.111 230.318)" />
+    <Info
+      v-if="severity == 'info'"
+      :size="35"
+      color="oklch(82.8% 0.111 230.318)"
+    />
   </div>
 </template>
 <style scoped></style>
