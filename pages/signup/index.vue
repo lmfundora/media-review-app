@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { authClient } from "@/lib/auth-client"; //import the auth client
 import LoginCard from "~/components/login/loginCard.vue";
+import SignUpForm from "~/components/login/signUpForm.vue";
 
 async function signInWithGoogle() {
   console.log("siuu");
@@ -22,14 +23,7 @@ async function signInWithGoogle() {
       title="Sing Up"
       subtitle="Aquí podrá crear su cuenta o usar Google."
     >
-      <Button @click="signInWithGoogle" color="white" severity="secondary">
-        <NuxtImg
-          src="/Google-Logo--Streamline-Ultimate.svg"
-          height="20"
-          width="20"
-        />
-        Google
-      </Button>
+      <SignUpForm />
     </LoginCard>
   </div>
 </template>

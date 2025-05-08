@@ -3,8 +3,6 @@ import { User } from "lucide-vue-next";
 import { authClient } from "@/lib/auth-client"; //import the auth client
 
 async function signInWithGoogle() {
-  console.log("siuu");
-
   await authClient.signIn.social({
     provider: "google",
     callbackURL: "/home",

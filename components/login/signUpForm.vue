@@ -2,17 +2,20 @@
 import { z } from "zod";
 import { zodResolver } from "@primevue/forms/resolvers/zod";
 import { useToast } from "primevue/usetoast";
+import { authClient } from "@/lib/auth-client"; //import the auth client
 
 const toast = useToast();
 
 const initialValues = ref({
-  username: "",
+  email: "",
+  name: "",
   password: "",
 });
 const resolver = ref(
   zodResolver(
     z.object({
-      username: z.string().min(1, { message: "Username is required via Zod." }),
+      email: z.string().email({ message: "Invalid email." }),
+      name: z.string(),
       password: z
         .string()
         .min(3, { message: "Minimum 3 characters." })
@@ -29,6 +32,30 @@ const resolver = ref(
     }),
   ),
 );
+
+async function signUp() {
+  const { data, error } = await authClient.signUp.email(
+    {
+      email: initialValues.value.email, // user email address
+      password: initialValues.value.password, // user password -> min 8 characters by default
+      name: initialValues.value.name, // user display name
+      callbackURL: "/dashboard", // A URL to redirect to after the user verifies their email (optional)
+    },
+    {
+      onRequest: (ctx) => {
+        //show loading
+      },
+      onSuccess: (ctx) => {
+        //redirect to the dashboard or sign in page
+      },
+      onError: (ctx) => {
+        // display the error message
+        alert(ctx.error.message);
+      },
+    },
+  );
+}
+
 const onFormSubmit = ({ valid }: { valid: boolean }) => {
   if (valid) {
     toast.add({
@@ -50,13 +77,23 @@ const onFormSubmit = ({ valid }: { valid: boolean }) => {
   >
     <div class="flex flex-col gap-4">
       <div>
-        <InputText name="username" type="text" placeholder="Username" fluid />
+        <InputText name="name" type="text" placeholder="Name" fluid />
         <Message
-          v-if="$form.username?.invalid"
+          v-if="$form.name?.invalid"
           severity="error"
           size="small"
           variant="simple"
-          >{{ $form.username.error.message }}</Message
+          >{{ $form.name.error.message }}</Message
+        >
+      </div>
+      <div>
+        <InputText name="email" type="text" placeholder="Email" fluid />
+        <Message
+          v-if="$form.email?.invalid"
+          severity="error"
+          size="small"
+          variant="simple"
+          >{{ $form.email.error.message }}</Message
         >
       </div>
       <div class="flex flex-col gap-1">
