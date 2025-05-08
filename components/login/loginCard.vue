@@ -22,7 +22,9 @@ defineProps({
 const { name } = useRoute();
 </script>
 <template>
-  <div class="w-5/6 h-fit sm:w-[480px] z-20 cristal flex flex-col items-center">
+  <div
+    class="w-5/6 h-fit sm:w-[480px] z-20 cristal flex flex-col text-t-primary text-center items-center rounded-2xl bg-white/3"
+  >
     <Avatar class="mt-8" size="xlarge" shape="circle">
       <template #icon>
         <User />
@@ -68,19 +70,4 @@ const { name } = useRoute();
     </div>
   </div>
 </template>
-<style scoped>
-.cristal {
-  border-radius: 15px;
-  background: linear-gradient(
-    0.15turn,
-    rgba(0, 0, 0, 0.04),
-    rgba(0, 0, 0, 0.1)
-  );
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  color: white;
-  text-align: center;
-  max-width: 80%;
-}
-</style>
+<style scoped></style>

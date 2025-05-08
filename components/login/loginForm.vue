@@ -18,7 +18,7 @@ const resolver = ref(
 const onFormSubmit = ({ valid }: { valid: boolean }) => {
   if (valid) {
     toast.add({
-      severity: "success",
+      severity: "error",
       summary: "Form is submitted.",
       life: 3000,
     });
