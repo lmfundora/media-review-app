@@ -10,6 +10,7 @@ import type {
 
 const toast = useToast();
 const loading = ref(false);
+const router = useRouter();
 
 const initialValues = ref({
   email: "",
@@ -38,15 +39,14 @@ const resolver = ref(
   ),
 );
 
-// To complete
 const onFormSubmit = async (formData: any) => {
   if (formData.valid) {
     const { data, error } = await authClient.signUp.email(
       {
-        email: formData.email, // user email address
-        password: formData.password, // user password -> min 8 characters by default
-        name: formData.name, // user display name
-        callbackURL: "/dashboard", // A URL to redirect to after the user verifies their email (optional)
+        email: formData.values.email, // user email address
+        password: formData.values.password, // user password -> min 8 characters by default
+        name: formData.values.name, // user display name
+        // callbackURL: "/home", // A URL to redirect to after the user verifies their email (optional)
       },
       {
         onRequest: (ctx) => {
@@ -54,27 +54,29 @@ const onFormSubmit = async (formData: any) => {
         },
         onSuccess: (ctx) => {
           //redirect to the dashboard or sign in page
-          toast.add({
-            severity: "success",
-            detail: "Acount created",
-            summary: "Your acount was created successfully.",
-            life: 3000,
-          });
           loading.value = false; //show loading
+          router.push({ name: "home" });
         },
         onError: (ctx) => {
           // display the error message
-          alert(ctx.error.message);
           toast.add({
             severity: "error",
-            detail: "Ups something whent wrong",
-            summary: ctx.error.message,
+            detail: ctx.error.message,
+            summary: "Ups something whent wrong",
             life: 3000,
           });
           loading.value = false; //show loading
         },
       },
     );
+    if (error == null) {
+      toast.add({
+        severity: "success",
+        detail: "Your acount was created successfully.",
+        summary: `Wellcome ${data.user.name}.`,
+        life: 3000,
+      });
+    }
   }
 };
 </script>
