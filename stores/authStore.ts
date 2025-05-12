@@ -1,10 +1,9 @@
-export const useAuthStore = defineStore('authStore', () => {
-  const session = ref(null)
-  const name = ref('Eduardo')
-  const doubleCount = computed(() => count.value * 2)
-  function increment() {
-    count.value++
-  }
+import { authClient } from "~/lib/auth-client";
 
-  return { count, name, doubleCount, increment }
-})
+export const useAuthStore = defineStore("authStore", () => {
+  const session = authClient.useSession();
+
+  const user = computed(() => session.value.data?.user);
+
+  return { user };
+});

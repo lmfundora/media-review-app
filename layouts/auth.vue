@@ -1,19 +1,12 @@
-<script setup lang="ts">
-import LoginCard from "~/components/login/loginCard.vue";
-import LoginForm from "~/components/login/loginForm.vue";
-import { useLayout } from "~/composables/useLayout";
-
-definePageMeta({
-  layout: useLayout("auth"),
-});
-</script>
+<script setup lang="ts"></script>
 <template>
-  <LoginCard
-    title="Sing In"
-    subtitle="Aquí podrá iniciar seción con su usuario y contraseña o con su cuenta de Google."
+  <div
+    class="w-screen h-screen relative flex justify-center items-center overflow-hidden"
   >
-    <LoginForm />
-  </LoginCard>
+    <div v-for="n in 5" :key="n" class="forma"></div>
+    <div class="absolute w-full h-full backdrop-blur-3xl top-0 right-0"></div>
+    <slot />
+  </div>
 </template>
 <style scoped>
 .forma {
@@ -27,6 +20,7 @@ definePageMeta({
   filter: blur(85px);
   /* Animación de latido */
   animation: latido 2s infinite alternate;
+  transform-origin: 50% 50%;
 }
 
 @keyframes latido {
