@@ -1,6 +1,6 @@
 const layoutsMap = new Map([
   ["default", "default"],
-  ["home", "home"],
+  ["home", "dashboard"],
   ["auth", "auth"],
 ]);
 export const useLayout = (key: string) => {

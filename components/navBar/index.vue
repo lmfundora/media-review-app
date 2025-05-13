@@ -1,17 +1,24 @@
 <script setup lang="ts">
-import { User } from "lucide-vue-next";
 import UserMenu from "./userMenu.vue";
+import NavigationButtons from "./navigationButtons.vue";
 
-const { user } = useAuthStore();
+const authStore = useAuthStore();
+
+const { width } = useWindowSize();
 </script>
 <template>
   <div
-    class="flex justify-end items-center px-2 rounded-xl w-[95%] h-12 sm:h-10 fixed top-2 right-0 left-0 backdrop-blur-md shadow-custom mx-auto"
+    class="flex justify-between items-center px-2 rounded-xl w-[95%] h-12 sm:h-10 fixed top-2 right-0 left-0 backdrop-blur-md shadow-custom mx-auto"
   >
-    <UserMenu v-if="user" :user />
-    <NuxtLink v-else to="/login">
-      <Button size="small" variant="text"> <User :size="17" /> Sign In </Button>
-    </NuxtLink>
+    <div class="w-[20%]">
+      <p class="text-t-primary text-2xl font-bold">Logo</p>
+    </div>
+    <div class="flex items-center justify-between w-1/2">
+      <div class="flex items-center justify-between w-2/3">
+        <NavigationButtons />
+      </div>
+      <UserMenu :user="authStore.user" />
+    </div>
   </div>
 </template>
 <style scoped></style>

@@ -1,6 +1,6 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { db, user, session, account, verification } from "../db"; // your drizzle instance
+import { db, user, session, account, verification } from "./db"; // your drizzle instance
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -18,3 +18,6 @@ export const auth = betterAuth({
     },
   },
 });
+
+export type Session = typeof auth.$Infer.Session;
+export type User = Session["user"];
