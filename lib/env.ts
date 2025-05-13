@@ -1,4 +1,4 @@
-import { string, z } from "zod";
+import { array, string, z } from "zod";
 
 const envSchema = z.object({
   DATABASE_URL: string(),
@@ -6,6 +6,7 @@ const envSchema = z.object({
   BETTER_AUTH_URL: string(),
   GOOGLE_CLIENT_ID: string(),
   GOOGLE_CLIENT_SECRET: string(),
+  BETTER_AUTH_TRUSTED_ORIGINS: string(),
 });
 
 export type EnvSchema = z.infer<typeof envSchema>;

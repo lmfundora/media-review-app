@@ -7,6 +7,7 @@ export const auth = betterAuth({
     provider: "pg", // or "mysql", "sqlite"
     schema: { user, session, account, verification },
   }),
+  trustedOrigins: process.env.BETTER_AUTH_TRUSTED_ORIGINS?.split(","),
   emailAndPassword: {
     enabled: true,
   },
