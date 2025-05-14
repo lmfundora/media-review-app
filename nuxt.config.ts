@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     "@primevue/nuxt-module",
     "@vueuse/nuxt",
     "@pinia/nuxt",
+    "@nuxtjs/supabase",
   ],
   css: ["~/assets/css/main.css"],
   vite: {

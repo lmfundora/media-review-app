@@ -7,6 +7,8 @@ const envSchema = z.object({
   GOOGLE_CLIENT_ID: string(),
   GOOGLE_CLIENT_SECRET: string(),
   BETTER_AUTH_TRUSTED_ORIGINS: string(),
+  SUPABASE_URL: string(),
+  SUPABASE_KEY: string(),
 });
 
 export type EnvSchema = z.infer<typeof envSchema>;
