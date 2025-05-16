@@ -41,6 +41,9 @@ importers:
       drizzle-orm:
         specifier: ^0.43.1
         version: 0.43.1(@types/pg@8.11.14)(kysely@0.27.6)(pg@8.15.6)
+      drizzle-zod:
+        specifier: ^0.7.1
+        version: 0.7.1(drizzle-orm@0.43.1(@types/pg@8.11.14)(kysely@0.27.6)(pg@8.15.6))(zod@3.24.4)
       lucide-vue-next:
         specifier: ^0.507.0
         version: 0.507.0(vue@3.5.13(typescript@5.8.3))
@@ -2455,6 +2458,12 @@ packages:
         optional: true
       sqlite3:
         optional: true
+
+  drizzle-zod@0.7.1:
+    resolution: {integrity: sha512-nZzALOdz44/AL2U005UlmMqaQ1qe5JfanvLujiTHiiT8+vZJTBFhj3pY4Vk+L6UWyKFfNmLhk602Hn4kCTynKQ==}
+    peerDependencies:
+      drizzle-orm: '>=0.36.0'
+      zod: '>=3.0.0'
 
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
@@ -7761,6 +7770,11 @@ snapshots:
       '@types/pg': 8.11.14
       kysely: 0.27.6
       pg: 8.15.6
+
+  drizzle-zod@0.7.1(drizzle-orm@0.43.1(@types/pg@8.11.14)(kysely@0.27.6)(pg@8.15.6))(zod@3.24.4):
+    dependencies:
+      drizzle-orm: 0.43.1(@types/pg@8.11.14)(kysely@0.27.6)(pg@8.15.6)
+      zod: 3.24.4
 
   dunder-proto@1.0.1:
     dependencies:
