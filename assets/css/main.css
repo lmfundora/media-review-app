@@ -27,6 +27,8 @@
     --p-toast-info-color: var(--color-info);
     --p-toast-success-color: var(--color-success);
 
+    --p-fileupload-background: var(--color-muted-light);
+    --p-fileupload-border-color: var(--color-muted-light);
     --p-button-text-secondary-hover-background: rgba(255, 255, 255, 0.1);
     --p-button-text-primary-hover-background: rgba(255, 255, 255, 0.1);
     --p-drawer-border-color: var(--color-muted-light);

@@ -12,13 +12,16 @@ defineProps({
 
 const router = useRouter();
 const menu = ref();
+const loading = ref(false);
 const toggle = (event: Event) => {
   menu.value.toggle(event);
 };
 
 async function singOut() {
+  loading.value = true;
   await authClient.signOut();
   router.push("/");
+  loading.value = false;
 }
 </script>
 <template>
@@ -52,6 +55,7 @@ async function singOut() {
           class="w-full mt-2"
           label="Sing Out"
           severity="secondary"
+          :loading="loading"
           @click="singOut"
         >
           <template #icon>
