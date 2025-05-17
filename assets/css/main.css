@@ -19,7 +19,7 @@
     background-color: var(--color-g-background);
 
     --p-toast-width: 350px;
-    --p-toast-border-radius: 15px;
+    --p-toast-border-radius: var(--radius-g-radius);
     --p-toast-info-border-color: rgba(255, 255, 255, 0.2);
     --p-toast-success-border-color: rgba(255, 255, 255, 0.2);
     --p-toast-error-border-color: rgba(255, 255, 255, 0.2);
@@ -29,6 +29,7 @@
 
     --p-fileupload-background: var(--color-muted-light);
     --p-fileupload-border-color: var(--color-muted-light);
+    --p-fileupload-border-radius: var(--radius-g-radius);
     --p-button-text-secondary-hover-background: rgba(255, 255, 255, 0.1);
     --p-button-text-primary-hover-background: rgba(255, 255, 255, 0.1);
     --p-drawer-border-color: var(--color-muted-light);

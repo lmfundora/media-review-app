@@ -9,7 +9,6 @@ const toast = useToast();
 const onRemoveTemplatingFile = (
   removeFileCallback: (index: number) => void,
 ) => {
-  files.value = [];
   removeFileCallback(0);
 };
 
@@ -18,84 +17,69 @@ const onSelectedFiles = (event: FileUploadSelectEvent) => {
 };
 </script>
 <template>
-  <div>
+  <div class="w-1/4">
     <FileUpload
-      name="demo[]"
-      url="/api/upload"
+      name="demo"
       accept="image/*"
       :maxFileSize="1000000"
       @select="onSelectedFiles"
     >
       <template #header="{ chooseCallback, clearCallback, files }">
-        <div class="flex flex-wrap justify-between items-center flex-1 gap-4">
-          <div class="flex gap-2">
-            <Button
-              @click="chooseCallback()"
-              icon="pi pi-images"
-              rounded
-              outlined
-              severity="primary"
-            >
-              <template #icon>
-                <Plus color="var(--color-t-accent)" :size="20" />
-              </template>
-            </Button>
-            <Button
-              @click="clearCallback()"
-              icon="pi pi-times"
-              rounded
-              outlined
-              severity="danger"
-              :disabled="!files || files.length === 0"
-            >
-              <template #icon>
-                <Eraser color="var(--color-error)" :size="20" />
-              </template>
-            </Button>
-          </div>
+        <div class="flex w-full justify-between items-center gap-4">
+          <Button
+            @click="chooseCallback()"
+            label="Add"
+            severity="secondary"
+            class="w-full"
+          >
+            <template #icon>
+              <Plus color="var(--color-t-accent)" :size="20" />
+            </template>
+          </Button>
+          <Button
+            @click="clearCallback()"
+            label="Clear"
+            severity="secondary"
+            class="w-full"
+            :disabled="!files || files.length === 0"
+          >
+            <template #icon>
+              <Eraser color="var(--color-error)" :size="20" />
+            </template>
+          </Button>
         </div>
       </template>
-      <template #content="{ files, removeFileCallback }">
-        <div class="flex flex-col gap-8 pt-4">
-          <div v-if="files.length > 0">
-            <div class="flex flex-wrap gap-4">
-              <div
-                :key="selectedFile.name + selectedFile.type + selectedFile.size"
-                class="p-8 rounded-border flex flex-col border border-surface items-center gap-4"
-              >
-                <div>
-                  <img
-                    role="presentation"
-                    :alt="selectedFile.name"
-                    :src="selectedFile.objectURL"
-                    width="100"
-                    height="50"
-                  />
-                </div>
-                <span
-                  class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden"
-                  >{{ selectedFile.name }}</span
-                >
-                <Button
-                  icon="pi pi-times"
-                  @click="onRemoveTemplatingFile(removeFileCallback)"
-                  outlined
-                  rounded
-                  severity="danger"
-                >
-                  <template #icon>
-                    <X color="var(--color-error)" :size="20" />
-                  </template>
-                </Button>
-              </div>
+      <template #content="{ files }">
+        <div
+          v-if="files.length > 0"
+          class="flex flex-col justify-center gap-8 pt-4 w-full min-h-[300px]"
+        >
+          <div
+            :key="selectedFile.name + selectedFile.type + selectedFile.size"
+            class="p-8 rounded-2xl flex w-full flex-col border border-t-primary items-center gap-4"
+          >
+            <div>
+              <img
+                role="presentation"
+                :alt="selectedFile.name"
+                :src="selectedFile.objectURL"
+                width="50"
+                height="100"
+              />
             </div>
+            <span
+              class="font-semibold text-t-primary text-ellipsis w-[90%] whitespace-nowrap overflow-hidden"
+              >{{ selectedFile.name }}</span
+            >
           </div>
         </div>
       </template>
       <template #empty>
-        <div class="flex items-center justify-center flex-col">
-          <Image :size="50" />
-          <p class="mt-6 mb-0">Drag and drop files to here to upload.</p>
+        <div class="flex items-center justify-center flex-col min-h-[300px]">
+          <Image :size="50" color="var(--color-t-primary)" />
+          <p class="mt-6 text-center mb-0 text-t-primary">
+            Drag and drop files to here to upload.
+          </p>
         </div>
       </template>
     </FileUpload>
