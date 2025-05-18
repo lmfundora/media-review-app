@@ -22,4 +22,5 @@ export const reviews = pgTable("reviews", {
 export const reviewsScehma = createInsertSchema(reviews).omit({
   id: true,
   createdAt: true,
+  isFavorite: true,
 });
