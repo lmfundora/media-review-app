@@ -29,8 +29,8 @@ const onSelectedFiles = (event: FileUploadSelectEvent) => {
 };
 </script>
 <template>
-  <div class="flex w-full gap-8 mt-3 h-full">
-    <div class="w-1/3">
+  <div class="flex w-full gap-12 mt-3 h-full">
+    <div class="w-1/3 flex flex-col flex-grow">
       <FileUpload
         name="image"
         accept="image/*"
@@ -65,30 +65,30 @@ const onSelectedFiles = (event: FileUploadSelectEvent) => {
         <template #content="{ files }">
           <div
             v-if="files.length > 0"
-            class="flex flex-col justify-center gap-8 pt-4 w-full min-h-[300px] max-h-full"
+            class="flex flex-col justify-center gap-8 pt-4 w-full min-h-[300px] max-h-[93%]"
           >
             <div
               :key="selectedFile.name + selectedFile.type + selectedFile.size"
-              class="p-8 rounded-2xl flex w-full flex-col border border-t-primary items-center gap-4"
+              class="p-8 rounded-2xl flex w-full flex-col border border-t-primary border-dashed items-center gap-4"
             >
               <div>
                 <img
                   role="presentation"
                   :alt="selectedFile.name"
                   :src="selectedFile.objectURL"
-                  width="50"
-                  height="100"
                 />
               </div>
               <span
-                class="font-semibold text-t-primary text-ellipsis w-[90%] whitespace-nowrap overflow-hidden"
+                class="font-semibold text-t-primary text-center text-ellipsis w-[90%] whitespace-nowrap overflow-hidden"
                 >{{ selectedFile.name }}</span
               >
             </div>
           </div>
         </template>
         <template #empty>
-          <div class="flex items-center justify-center flex-col h-full">
+          <div
+            class="flex items-center justify-center flex-col h-[calc(100vh_-_260px)] rounded-xl border-1 border-t-primary border-dashed"
+          >
             <Image :size="50" color="var(--color-t-primary)" />
             <p class="mt-6 text-center mb-0 text-t-primary">
               Drag and drop files to here to upload.
@@ -148,7 +148,7 @@ const onSelectedFiles = (event: FileUploadSelectEvent) => {
         <label for="review" class="block text-t-primary font-semibold mb-2"
           >Review</label
         >
-        <Textarea name="review" class="w-full" rows="5" />
+        <Textarea name="review" class="w-full" rows="8" />
         <Message
           v-if="$form.review?.invalid"
           severity="error"
@@ -157,13 +157,21 @@ const onSelectedFiles = (event: FileUploadSelectEvent) => {
           >{{ $form.review.error.message }}</Message
         >
       </div>
-      <Button type="submit" label="Submit" :disabled="isSubmitting" />
+      <Button
+        type="submit"
+        severity="secondary"
+        outlined
+        label="Submit"
+        :disabled="isSubmitting"
+      />
     </Form>
   </div>
 </template>
 
 <style scoped>
 .p-fileupload {
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 150px);
 }
 </style>

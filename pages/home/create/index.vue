@@ -7,7 +7,7 @@ definePageMeta({
 });
 </script>
 <template>
-  <div>
+  <div class="flex flex-col w-full h-full">
     <p class="text-t-primary text-xl">Create</p>
     <ReviewForm />
   </div>
