@@ -1,27 +1,38 @@
 <script setup lang="ts">
-import { Eraser, Image, Plus, X, Heart } from "lucide-vue-next";
+import { Eraser, Image, Plus } from "lucide-vue-next";
 import type { FileUploadSelectEvent } from "primevue/fileupload";
-import { ref, computed } from "vue";
+import { zodResolver } from "@primevue/forms/resolvers/zod";
+import { reviewsScehma } from "~/lib/db/schema/notes-schema";
+import { useToast } from "primevue/usetoast";
 
 const files = ref<FileUploadSelectEvent["files"]>([]);
 const selectedFile = computed(() => files.value[files.value.length - 1]);
+const isSubmitting = ref(false);
 const toast = useToast();
 
-const title = ref("");
-const description = ref("");
-const review = ref("");
-const rating = ref<number | undefined>();
-const isFavorite = ref(false);
+const initialValues = ref({
+  title: "",
+  description: "",
+  review: "",
+  rating: undefined,
+  image: undefined,
+});
+
+const resolver = ref(zodResolver(reviewsScehma));
+
+const onSubmit = (values: any) => {
+  console.log("Form values", values);
+};
 
 const onSelectedFiles = (event: FileUploadSelectEvent) => {
   files.value = event.files;
 };
 </script>
 <template>
-  <div class="flex w-full mt-8">
-    <div class="w-1/4">
+  <div class="flex w-full gap-8 mt-3 h-full">
+    <div class="w-1/3">
       <FileUpload
-        name="demo"
+        name="image"
         accept="image/*"
         :maxFileSize="1000000"
         @select="onSelectedFiles"
@@ -54,7 +65,7 @@ const onSelectedFiles = (event: FileUploadSelectEvent) => {
         <template #content="{ files }">
           <div
             v-if="files.length > 0"
-            class="flex flex-col justify-center gap-8 pt-4 w-full min-h-[300px]"
+            class="flex flex-col justify-center gap-8 pt-4 w-full min-h-[300px] max-h-full"
           >
             <div
               :key="selectedFile.name + selectedFile.type + selectedFile.size"
@@ -77,7 +88,7 @@ const onSelectedFiles = (event: FileUploadSelectEvent) => {
           </div>
         </template>
         <template #empty>
-          <div class="flex items-center justify-center flex-col min-h-[300px]">
+          <div class="flex items-center justify-center flex-col h-full">
             <Image :size="50" color="var(--color-t-primary)" />
             <p class="mt-6 text-center mb-0 text-t-primary">
               Drag and drop files to here to upload.
@@ -86,37 +97,73 @@ const onSelectedFiles = (event: FileUploadSelectEvent) => {
         </template>
       </FileUpload>
     </div>
-    <div class="w-3/4 flex flex-col gap-4 ps-26">
+    <Form
+      v-slot="$form"
+      :initialValues="initialValues"
+      :resolver="resolver"
+      @submit="onSubmit"
+      class="w-2/3 flex flex-col gap-4 h-full"
+    >
       <div class="flex w-full justify-between items-center">
         <div class="w-full">
           <div class="flex w-full items-center justify-between">
             <label for="title" class="block text-t-primary font-semibold mb-2"
               >Title</label
             >
-            <Rating v-model="rating" :cancel="false" />
+            <div>
+              <Rating name="rating" :cancel="false" />
+              <Message
+                v-if="$form.rating?.invalid"
+                severity="error"
+                size="small"
+                variant="simple"
+                >{{ $form.rating.error?.message }}</Message
+              >
+            </div>
           </div>
-          <InputText id="title" type="text" class="w-full" v-model="title" />
+          <InputText name="title" type="text" class="w-full" />
+          <Message
+            v-if="$form.title?.invalid"
+            severity="error"
+            size="small"
+            variant="simple"
+            >{{ $form.title.error.message }}</Message
+          >
         </div>
       </div>
       <div class="field">
         <label for="description" class="block text-t-primary font-semibold mb-2"
           >Description</label
         >
-        <Textarea
-          id="description"
-          class="w-full"
-          v-model="description"
-          rows="3"
-        />
+        <Textarea name="description" class="w-full" rows="3" />
+        <Message
+          v-if="$form.description?.invalid"
+          severity="error"
+          size="small"
+          variant="simple"
+          >{{ $form.description.error.message }}</Message
+        >
       </div>
       <div class="field">
         <label for="review" class="block text-t-primary font-semibold mb-2"
           >Review</label
         >
-        <Textarea id="review" class="w-full" v-model="review" rows="5" />
+        <Textarea name="review" class="w-full" rows="5" />
+        <Message
+          v-if="$form.review?.invalid"
+          severity="error"
+          size="small"
+          variant="simple"
+          >{{ $form.review.error.message }}</Message
+        >
       </div>
-    </div>
+      <Button type="submit" label="Submit" :disabled="isSubmitting" />
+    </Form>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.p-fileupload {
+  height: 100%;
+}
+</style>

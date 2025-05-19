@@ -27,6 +27,9 @@
     --p-toast-info-color: var(--color-info);
     --p-toast-success-color: var(--color-success);
 
+    --p-rating-icon-color: oklch(90.5% 0.182 98.111);
+    --p-rating-icon-active-color: oklch(90.5% 0.182 98.111);
+    --p-rating-icon-hover-color: oklch(60.5% 0.182 98.111);
     --p-fileupload-background: var(--color-muted-light);
     --p-fileupload-border-color: var(--color-muted-light);
     --p-fileupload-border-radius: var(--radius-g-radius);
