@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Eraser, Image, Plus } from "lucide-vue-next";
+import { Eraser, Image, Plus, Send } from "lucide-vue-next";
 import type { FileUploadSelectEvent } from "primevue/fileupload";
 import { zodResolver } from "@primevue/forms/resolvers/zod";
 import { reviewsScehma } from "~/lib/db/schema/notes-schema";
@@ -18,10 +18,58 @@ const initialValues = ref({
   image: undefined,
 });
 
+const { width } = useWindowSize();
+
 const resolver = ref(zodResolver(reviewsScehma));
 
-const onSubmit = (values: any) => {
-  console.log("Form values", values);
+const { startUpload } = useUploadThing("imageUploader", {
+  onClientUploadComplete(res) {
+    console.log(`onClientUploadComplete`, res);
+  },
+  onUploadError: (error) => {
+    console.error(error, error.cause);
+    alert("Upload failed");
+  },
+});
+
+const onSubmit = async (formData: any) => {
+  if (!formData.valid) return;
+
+  isSubmitting.value = true;
+  const formValues = formData.values;
+  const newFormData = new FormData();
+  for (const key in formValues) {
+    newFormData.append(key, formValues[key]);
+  }
+
+  if (selectedFile.value) {
+    newFormData.append("image", selectedFile.value, selectedFile.value.name);
+  }
+
+  try {
+    await startUpload([selectedFile.value]);
+    // const response = await $fetch("/api/reviews", {
+    //   method: "POST",
+    //   body: newFormData,
+    // });
+    // console.log("API Response:", response);
+    // toast.add({
+    //   severity: "success",
+    //   summary: "Success",
+    //   detail: "Review submitted successfully.",
+    //   life: 3000,
+    // });
+  } catch (error: any) {
+    console.error("API Error:", error);
+    toast.add({
+      severity: "error",
+      summary: "Error",
+      detail: error.message || "Failed to submit review.",
+      life: 3000,
+    });
+  } finally {
+    isSubmitting.value = false;
+  }
 };
 
 const onSelectedFiles = (event: FileUploadSelectEvent) => {
@@ -72,11 +120,11 @@ const onSelectedFiles = (event: FileUploadSelectEvent) => {
               class="p-8 rounded-2xl flex w-full flex-col border border-t-primary border-dashed items-center gap-4"
             >
               <div>
-                <img
+                <NuxtImg
                   role="presentation"
                   :alt="selectedFile.name"
                   :src="selectedFile.objectURL"
-                  :width="110"
+                  :width="width / 5"
                 />
               </div>
               <span
@@ -158,13 +206,18 @@ const onSelectedFiles = (event: FileUploadSelectEvent) => {
           >{{ $form.review.error.message }}</Message
         >
       </div>
-      <Button
-        type="submit"
-        severity="secondary"
-        outlined
-        label="Submit"
-        :disabled="isSubmitting"
-      />
+      <div class="flex justify-end">
+        <Button
+          type="submit"
+          class="mt-4"
+          label="Save"
+          :disabled="isSubmitting || files.length === 0"
+        >
+          <template #icon>
+            <Send color="var(--color-t-primary)" :size="18" />
+          </template>
+        </Button>
+      </div>
     </Form>
   </div>
 </template>

@@ -4,6 +4,7 @@
     --color-t-primary: oklch(92% 0.004 286.32);
     --color-t-secondary: oklch(82% 0.004 286.32);
     --color-t-accent: oklch(76.5% 0.177 163.223);
+    --color-t-accent-muted: oklch(44.5% 0.143 164.978);
     --color-muted: oklch(16.1% 0.005 285.823);
     --color-error: oklch(64.5% 0.246 16.439);
     --color-info: oklch(74.6% 0.16 232.661);
@@ -11,6 +12,7 @@
     --color-muted-light: oklch(25% 0.006 285.885);
     --color-g-background: oklch(21% 0.006 285.885);
     --radius-g-radius: 15px;
+    --radius-g-radius-12: 12px;
     --shadow-custom:
         4px 4px 25px var(--color-muted), -1px -1px 8px var(--color-muted-light);
 }
@@ -27,18 +29,38 @@
     --p-toast-info-color: var(--color-info);
     --p-toast-success-color: var(--color-success);
 
+    --p-inputtext-background: var(--color-muted-light);
+    --p-inputtext-border-color: var(--color-muted-light);
+    --p-inputtext-border-radius: var(--radius-g-radius-12);
+    --p-inputtext-focus-border-color: var(--color-t-accent);
+    --p-inputtext-hover-border-color: var(--color-t-accent-muted);
+
+    --p-textarea-background: var(--color-muted-light);
+    --p-textarea-border-color: var(--color-muted-light);
+    --p-textarea-border-radius: var(--radius-g-radius-12);
+    --p-textarea-focus-border-color: var(--color-t-accent);
+    --p-textarea-hover-border-color: var(--color-t-accent-muted);
+    --p-textarea-focus-ring-width: 2px;
+    --p-textarea-focus-ring-color: var(--color-t-accent);
+    --p-textarea-focus-ring-offset: 3px;
+
     --p-rating-icon-color: oklch(90.5% 0.182 98.111);
     --p-rating-icon-active-color: oklch(90.5% 0.182 98.111);
     --p-rating-icon-hover-color: oklch(60.5% 0.182 98.111);
+
     --p-fileupload-background: var(--color-muted-light);
     --p-fileupload-border-color: var(--color-muted-light);
     --p-fileupload-border-radius: var(--radius-g-radius);
+
     --p-button-text-secondary-hover-background: rgba(255, 255, 255, 0.1);
     --p-button-text-primary-hover-background: rgba(255, 255, 255, 0.1);
+
     --p-drawer-border-color: var(--color-muted-light);
+
     --p-menu-background: var(--color-muted-light);
     --p-menu-border-color: var(--color-muted-light);
     --p-menu-border-radius: var(--radius-g-radius);
+
     --p-toast-info-background: cristal;
     --p-toast-success-background: cristal;
     --p-toast-error-background: cristal;

@@ -10,10 +10,10 @@ export default defineNuxtConfig({
   modules: [
     "@nuxt/fonts",
     "@nuxt/image",
+    "@uploadthing/nuxt",
     "@primevue/nuxt-module",
     "@vueuse/nuxt",
     "@pinia/nuxt",
-    "@nuxtjs/supabase",
   ],
   css: ["~/assets/css/main.css"],
   vite: {
@@ -29,7 +29,7 @@ export default defineNuxtConfig({
       },
     },
   },
-  supabase: {
-    redirect: false, // Deshabilita las redirecciones automáticas
+  uploadthing: {
+    routerPath: "~/server/api/uploadImags/index.ts",
   },
 });
