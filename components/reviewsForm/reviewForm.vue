@@ -29,8 +29,8 @@ const onSelectedFiles = (event: FileUploadSelectEvent) => {
 };
 </script>
 <template>
-  <div class="flex w-full gap-12 mt-3 h-full">
-    <div class="w-1/3 flex flex-col flex-grow">
+  <div class="flex flex-col sm:flex-row w-full gap-12 mt-3 h-full">
+    <div class="w-full sm:w-1/3 flex flex-col flex-grow">
       <FileUpload
         name="image"
         accept="image/*"
@@ -76,6 +76,7 @@ const onSelectedFiles = (event: FileUploadSelectEvent) => {
                   role="presentation"
                   :alt="selectedFile.name"
                   :src="selectedFile.objectURL"
+                  :width="110"
                 />
               </div>
               <span
@@ -87,7 +88,7 @@ const onSelectedFiles = (event: FileUploadSelectEvent) => {
         </template>
         <template #empty>
           <div
-            class="flex items-center justify-center flex-col h-[calc(100vh_-_260px)] rounded-xl border-1 border-t-primary border-dashed"
+            class="flex items-center justify-center flex-col h-[calc(100vh_-_460px)] sm:h-[calc(100vh_-_260px)] rounded-xl border-1 border-t-primary border-dashed"
           >
             <Image :size="50" color="var(--color-t-primary)" />
             <p class="mt-6 text-center mb-0 text-t-primary">
@@ -102,7 +103,7 @@ const onSelectedFiles = (event: FileUploadSelectEvent) => {
       :initialValues="initialValues"
       :resolver="resolver"
       @submit="onSubmit"
-      class="w-2/3 flex flex-col gap-4 h-full"
+      class="w-full sm:w-2/3 pb-24 sm:pb-0 flex flex-col gap-4 h-full"
     >
       <div class="flex w-full justify-between items-center">
         <div class="w-full">
@@ -148,7 +149,7 @@ const onSelectedFiles = (event: FileUploadSelectEvent) => {
         <label for="review" class="block text-t-primary font-semibold mb-2"
           >Review</label
         >
-        <Textarea name="review" class="w-full" rows="8" />
+        <Textarea name="review" class="w-full" rows="6" />
         <Message
           v-if="$form.review?.invalid"
           severity="error"
@@ -170,8 +171,11 @@ const onSelectedFiles = (event: FileUploadSelectEvent) => {
 
 <style scoped>
 .p-fileupload {
-  display: flex;
-  flex-direction: column;
   height: calc(100vh - 150px);
+}
+@media screen and (max-width: 768px) {
+  .p-fileupload {
+    height: calc(100vh - 350px); /* Ajusta este valor según tus necesidades */
+  }
 }
 </style>

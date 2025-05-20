@@ -16,7 +16,7 @@ function isCurrentPath(path: string) {
   <NuxtLink
     v-for="rout in routes"
     :to="rout.path"
-    class="hover:bg-muted-light rounded-xl px-3 py-2 w-20 sm:w-fit flex items-center gap-1 sm:gap-2 transition-all duration-300"
+    class="hover:bg-muted-light rounded-xl px-3 py-2 w-20 sm:w-fit flex flex-col sm:flex-row items-center gap-1 sm:gap-2 transition-all duration-300"
     :class="{
       'text-t-accent bg-gray-500/10 scale-125 sm:scale-100': isCurrentPath(
         rout.path,
