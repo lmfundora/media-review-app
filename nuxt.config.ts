@@ -29,7 +29,5 @@ export default defineNuxtConfig({
       },
     },
   },
-  uploadthing: {
-    routerPath: "~/server/api/uploadImags/index.ts",
-  },
+  uploadthing: {},
 });

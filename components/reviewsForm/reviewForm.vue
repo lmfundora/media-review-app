@@ -22,16 +22,12 @@ const { width } = useWindowSize();
 
 const resolver = ref(zodResolver(reviewsScehma));
 
-const { startUpload } = useUploadThing("imageUploader", {
+const { startUpload } = useUploadThing("uploadthing", {
   onClientUploadComplete(res) {
     console.log(`onClientUploadComplete`, res);
-  },
-  onUploadError: (error) => {
-    console.error(error, error.cause);
-    alert("Upload failed");
+    alert("Upload Completed");
   },
 });
-
 const onSubmit = async (formData: any) => {
   if (!formData.valid) return;
 

@@ -1,5 +1,4 @@
 import { db, reviews } from "~/lib/db";
-import { uploadRouter } from "../uploadthing";
 
 export default defineEventHandler(async (event) => {
   const formData = await readFormData(event);
