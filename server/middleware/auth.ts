@@ -6,8 +6,6 @@ export default defineEventHandler(async (event) => {
       headers: event.headers,
     });
 
-    console.log("siuu");
-
     if (!session) {
       return sendRedirect(event, "/login", 302);
     }

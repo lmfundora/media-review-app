@@ -1,4 +1,3 @@
-import type { H3Event } from "h3";
 import { auth } from "~/lib/auth";
 
 import { createUploadthing } from "uploadthing/h3";
